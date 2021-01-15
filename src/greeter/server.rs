@@ -1,6 +1,4 @@
-extern crate pretty_env_logger;
-#[macro_use]
-extern crate log;
+use log::info;
 
 use tonic::{transport::Server, Request, Response, Status};
 
@@ -25,7 +23,7 @@ impl Greeter for MyGreeter {
   }
 }
 
-#[tokio::main]
+#[tokio::main(worker_threads = 2)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   pretty_env_logger::init();
 

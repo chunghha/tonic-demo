@@ -1,6 +1,4 @@
-extern crate pretty_env_logger;
-#[macro_use]
-extern crate log;
+use log::info;
 
 use greet::greeter_client::GreeterClient;
 use greet::GreetRequest;
@@ -9,7 +7,7 @@ pub mod greet {
   tonic::include_proto!("greet");
 }
 
-#[tokio::main]
+#[tokio::main(worker_threads = 2)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   pretty_env_logger::init();
 
