@@ -1,6 +1,7 @@
-use log::info;
-
 use tonic::{transport::Server, Request, Response, Status};
+
+use tracing::info;
+use tracing_subscriber;
 
 use greet::greeter_server::{Greeter, GreeterServer};
 use greet::{GreetReply, GreetRequest};
@@ -25,7 +26,7 @@ impl Greeter for MyGreeter {
 
 #[tokio::main(worker_threads = 2)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-  pretty_env_logger::init();
+  tracing_subscriber::fmt::init();
 
   let addr = "[::1]:50051".parse()?;
   let greeter = MyGreeter::default();

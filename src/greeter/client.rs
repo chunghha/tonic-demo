@@ -1,4 +1,5 @@
-use log::info;
+use tracing::info;
+use tracing_subscriber;
 
 use greet::greeter_client::GreeterClient;
 use greet::GreetRequest;
@@ -9,7 +10,7 @@ pub mod greet {
 
 #[tokio::main(worker_threads = 2)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-  pretty_env_logger::init();
+  tracing_subscriber::fmt::init();
 
   let mut client = GreeterClient::connect("http://[::1]:50051").await?;
 
